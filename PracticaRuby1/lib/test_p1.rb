@@ -508,8 +508,6 @@ module TestP1
         puts ("\t*Sorpresa #{sorpresa.to_string}")
         
       #Probando resto de métodos
-      puts ("\n*Probando resto de métodos....")
-      
       j1 = Civitas::Jugador.new_jugador("Jesus")
       j2 = Civitas::Jugador.new_jugador("Nuria")
       j3 = Civitas::Jugador.new_jugador("Jose")
@@ -523,7 +521,13 @@ module TestP1
       
       
         #Métodos recibe+jugador correcto+informe
-      
+      puts ("*Probando métodos recibe")
+      descanso.recibe_jugador(0, todos)
+      calle.recibe_jugador(0, todos)
+      impuesto.recibe_jugador(0, todos)
+      juez.recibe_jugador(0, todos)
+#      sorpresa.recibe_jugador(0, todos)
+
         #Leer diario 
       while (Civitas::Diario.instance.eventos_pendientes)
         puts ("\t\t-Diario: #{Civitas::Diario.instance.leer_evento}")
