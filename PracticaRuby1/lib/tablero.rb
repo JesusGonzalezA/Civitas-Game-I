@@ -89,6 +89,7 @@ module Civitas
         añade_casilla(Casilla.new_casilla_juez("Juez", @numCasillaCarcel))
       end
       
+      @tieneJuez = true
     end
 
     #--------------------------------------
