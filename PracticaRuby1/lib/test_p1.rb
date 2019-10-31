@@ -320,6 +320,18 @@ module TestP1
       
       j1.modificar_saldo(100)
       
+      j1.salir_carcel_pagando
+      
+      #Probar comprar y vender
+      j1.puede_comprar_casilla
+      puts "-Comprada #{j1.comprar(titulo1)}"
+      puts j1.to_string
+      puts titulo1.to_string
+      puts "-Vender #{j1.vender(0)}"
+      puts j1.to_string
+      puts titulo1.to_string
+      
+      
         #Probar sin estar encarcelado
       puts ("-Mover a casilla : #{j1.mover_a_casilla(3)}")
       
@@ -349,6 +361,8 @@ module TestP1
       puts("-Algo que gestionar: #{j1.tiene_algo_que_gestionar}")
       
       puts("-Tiene salvoconducto: #{j1.tiene_salvoconducto}")
+      
+      
       
        while (Civitas::Diario.instance.eventos_pendientes)
         puts "\t\t-Diario: #{Civitas::Diario.instance.leer_evento()}"

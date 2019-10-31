@@ -84,7 +84,26 @@ module Civitas
     end
     
     def comprar(titulo)
-      @propiedades<<(titulo)
+      resultado = false
+      
+      if (!@encarcelado && @puedeComprar)
+        precio = titulo.precioCompra
+        if (puedo_gastar(precio))
+          #Hace pagar y actualiza el propietario
+          resultado = titulo.comprar(self)
+          
+          #Añado a propiedades y aviso al diario
+          if (resultado)
+            @propiedades<<titulo
+            evento = "El jugador #{@nombre} compra la propiedad #{titulo.nombre}"
+            Diario.instance.ocurre_evento(evento)
+          end
+        end
+        
+        @puedeComprar = false
+      end
+      
+      return resultado
     end
     
     def construir_casa(ip)
@@ -326,7 +345,22 @@ module Civitas
     end
     
     def vender(ip)
+      completado = false
       
+      if (!@encarcelado && existe_la_propiedad(ip))
+        propiedad = (@propiedades[ip])
+        completado = propiedad.vender(self)
+      end
+      
+      if (completado)
+        evento = "La propiedad #{@propiedades[ip].nombre} ha sido vendida"
+        evento += " por el jugador #{@nombre}"
+        Diario.instance.ocurre_evento(evento)
+        
+        propiedades.delete_at(ip)
+      end
+      
+      return completado
     end
     
     #---------------------------------------------------------
