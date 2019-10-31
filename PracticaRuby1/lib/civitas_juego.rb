@@ -70,7 +70,7 @@ module Civitas
         end
       end
         
-      puts salida
+      return salida
     end
     
     def cancelar_hipoteca(ip)
