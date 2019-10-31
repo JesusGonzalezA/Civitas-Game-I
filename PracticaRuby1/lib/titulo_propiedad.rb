@@ -191,10 +191,15 @@ module Civitas
     def vender(jugador)
       operacion_completada = false
       
-      if (tiene_propietario && !es_este_el_propietario(jugador))
-        jugador.paga(get_precio_venta)
+      if (!@hipotecado && es_este_el_propietario(jugador))
+        
+        #Recibe la venta
         @propietario.recibe(get_precio_venta)
-        actualiza_propietario_por_conversion(jugador)
+        
+        #Desvinculo la propiedad del jugador
+        @propietario = nil
+        
+        #Reinicio el titulo
         @numCasas = 0
         @numHoteles = 0
         operacion_completada = true
