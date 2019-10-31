@@ -97,7 +97,39 @@ module Civitas
       num_jugadores = todos.size
       return (num_jugadores > actual && actual>=0)
     end
+    
+    def recibe_jugador (actual,todos)
+      case @tipo
+      
+      when Tipo_casilla::CALLE
+        recibe_jugador_calle(actual,todos)
+      when Tipo_casilla::IMPUESTO
+        recibe_jugador_impuesto(actual,todos)
+      when Tipo_casilla::JUEZ
+        recibe_jugador_juez(actual,todos)
+      when Tipo_casilla::SORPRESA
+        recibe_jugador_sorpresa(actual,todos)
+      else
+        informe(actual,todos)
+      end
+    end
 
+    def recibe_jugador_calle(actual,todos)
+      if (jugador_correcto(actual,todos))
+        
+        informe(actual,todos)
+        
+        if (!@tituloPropiedad.tiene_propietario)
+          todos.at(actual).puede_comprar_casilla
+        
+        else
+          @tituloPropiedad.tramitar_alquiler(todos.at(actual))
+         
+        end
+        
+      end
+    end
+    
     def recibe_jugador_impuesto (actual,todos)
       if(jugador_correcto(actual,todos))
         informe(actual,todos)
@@ -113,6 +145,21 @@ module Civitas
         
         #encarcela al jugador
         todos.at(actual).encarcelar(@@Carcel)
+      end
+    end
+    
+    def recibe_jugador_sorpresa(actual,todos)
+      if(jugador_correcto(actual,todos))
+        
+        #1
+        sorpresa = @mazo.siguiente
+        
+        #2
+        informe(actual,todos)
+        
+        #3
+        sorpresa.aplicar_a_jugador(actual, todos)
+        
       end
     end
     
@@ -136,6 +183,7 @@ module Civitas
     
     #---------------------------------------------------------------
     private :init, :informe, :recibe_jugador_impuesto, :recibe_jugador_juez
+    private :recibe_jugador_sorpresa,:recibe_jugador_calle
     #---------------------------------------------------------------
     
     
