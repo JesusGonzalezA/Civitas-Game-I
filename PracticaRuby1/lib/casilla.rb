@@ -73,8 +73,6 @@ module Civitas
       @nombre = ""
       @importe =0
       
-      #Atributos de clase
-      @@Carcel = -1
     end
   
     #---------------------------------------------------------------
