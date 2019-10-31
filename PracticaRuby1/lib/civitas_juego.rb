@@ -73,6 +73,30 @@ module Civitas
       return salida
     end
     
+    def avanza_jugador
+      #Obtener jugador y su casilla
+      jugador_actual = get_jugador_actual
+      posicion_actual = jugador_actual.numCasillaActual
+      
+      #Calcular tirada
+      tirada = Dado.instance.tirar
+      posicion_nueva = @tablero.nueva_posicion(posicion_actual, tirada)
+      
+      #Obtener casilla actual
+      casilla = @tablero.get_casilla(posicion_nueva)
+      
+      #Pre -- Contabilizar pasos por salida
+      contabilizar_pasos_por_salida(jugador_actual)
+      
+      #Mover a casilla
+      jugador_actual.mover_a_casilla(posicion_nueva)
+      casilla.recibe_jugador(@indiceJugadorActual, @jugadores)
+      
+      #Post -- Contabilizar pasos por salida
+      contabilizar_pasos_por_salida(jugador_actual)
+      
+    end
+    
     def cancelar_hipoteca(ip)
       return @jugadores.at(@indiceJugadorActual).cancelar_hipoteca(ip)
     end
@@ -196,7 +220,7 @@ module Civitas
     #--------------------------------------------------------------
     private :inicializa_mazo_sorpresas, :inicializa_tablero
     private :actualizar_info, :contabilizar_pasos_por_salida
-    private :pasar_turno, :ranking
+    private :pasar_turno, :ranking,:avanza_jugador
     
     #--------------------------------------------------------------
   end
