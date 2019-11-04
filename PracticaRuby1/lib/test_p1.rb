@@ -7,6 +7,8 @@
 
 require_relative 'civitas_juego'
 
+require_relative 'salidas_carcel'
+
 
 module TestP1
 
@@ -318,17 +320,25 @@ module TestP1
         
       puts ("-¿Encarcelado? #{j1.is_encarcelado}")
       
-      j1.modificar_saldo(100)
+      j1.modificar_saldo(100000)
       
       j1.salir_carcel_pagando
       
       #Probar comprar y vender
       j1.puede_comprar_casilla
       puts "-Comprada #{j1.comprar(titulo1)}"
-      puts j1.to_string
+      puts "-Hipotecar #{j1.hipotecar(0)}"
+      j1.construir_casa(0)
+      j1.construir_casa(0)
+      j1.construir_casa(0)
+      j1.construir_casa(0)
+      j1.construir_hotel(0)
+      j1.construir_casa(0)
+      j1.construir_casa(0)
       puts titulo1.to_string
+      
+      puts "-Cancelar hipoteca #{j1.cancelar_hipoteca(0)}"
       puts "-Vender #{j1.vender(0)}"
-      puts j1.to_string
       puts titulo1.to_string
       
       
@@ -598,5 +608,5 @@ module TestP1
   puts("PROBANDO CIVITASJUEGO")
   puts ("*************************************************************")
   Test.probar_civitas_juego
-
+  
 end
