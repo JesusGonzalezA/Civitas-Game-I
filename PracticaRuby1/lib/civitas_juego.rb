@@ -101,6 +101,14 @@ module Civitas
       return @jugadores.at(@indiceJugadorActual).cancelar_hipoteca(ip)
     end
     
+    def comprar
+      jugador_actual = get_jugador_actual
+      casilla = get_casilla_actual
+      titulo = casilla.tituloPropiedad
+      
+      res = jugador_actual.comprar(titulo)
+    end
+    
     def construir_casa(ip)
       return @jugadores.at(@indiceJugadorActual).construir_casa(ip)
     end
@@ -168,18 +176,18 @@ module Civitas
     
     def inicializa_tablero(mazo)
       
-      indice_carcel = 3
+      indice_carcel = 1
       
       #Creo el tablero
       @tablero = Tablero.new(indice_carcel)
-      @tablero.añade_juez
       
       #Añade casillas
+      @tablero.añade_casilla(Casilla.new_casilla_sorpresa(@mazo, "Caja de comunidad"))
       @tablero.añade_casilla(Casilla.new_casilla_descanso("Descanso"))
       @tablero.añade_casilla(Casilla.new_casilla_calle(TituloPropiedad.new("Murcia",25,50,1000,2000,500)))
       @tablero.añade_casilla(Casilla.new_casilla_impuesto("Impuesto por ser tan guapo",1500))
-      @tablero.añade_casilla(Casilla.new_casilla_juez("Juzgados", indice_carcel))
       @tablero.añade_casilla(Casilla.new_casilla_calle(TituloPropiedad.new("Paseo del Prado",25,50,1000,2000,500)))
+      @tablero.añade_juez
       
     end
     
@@ -209,8 +217,25 @@ module Civitas
       return get_jugador_actual.salir_carcel_tirando
     end
     
+    def siguiente_paso
+      jugador_actual = get_jugador_actual
+      operacion = @gestorEstados.operaciones_permitidas(jugador_actual, @estado)
+    
+      if (operacion == Operaciones_juego::PASAR_TURNO)
+        pasar_turno
+        siguiente_paso_completado(operacion)
+        
+      else if(operacion == Operaciones_juego::AVANZAR)
+        avanza_jugador
+        siguiente_paso_completado(operacion)
+      end
+      end
+      
+      return operacion
+    end
+    
     def siguiente_paso_completado(operacion)
-      @estados = @gestorEstados.siguiente_estado(get_jugador_actual, @estado, operacion)
+      @estado = @gestorEstados.siguiente_estado(get_jugador_actual, @estado, operacion)
     end
     
     def vender(ip)
