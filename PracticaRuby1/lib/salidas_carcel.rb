@@ -8,6 +8,6 @@ end
 ## Uso lista como una variable global 
 #
 #$lista_Salidas_carcel = [
-#                        Salidas_carcel::PAGANDO,
-#                        Salidas_carcel::TIRANDO
+#                        Civitas::Salidas_carcel::PAGANDO,
+#                        Civitas::Salidas_carcel::TIRANDO
 #                        ]
