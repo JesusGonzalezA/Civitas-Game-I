@@ -7,8 +7,6 @@
 
 require_relative 'civitas_juego'
 
-require_relative 'salidas_carcel'
-
 
 module TestP1
 
