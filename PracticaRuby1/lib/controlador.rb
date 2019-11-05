@@ -27,7 +27,7 @@ module Civitas
       
       #Mostrar el estado del juego actualizado
       @vista.setCivitasJuego(@juego)
-      continuar = !@juego.final_del_juegol
+      continuar = !@juego.final_del_juego
       
       while (continuar)
         
