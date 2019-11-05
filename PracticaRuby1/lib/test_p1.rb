@@ -567,7 +567,12 @@ module TestP1
       
       #Probando siguiente paso completado
       puts ("*Probando siguiente paso completado....")
-      juego.siguiente_paso_completado(Civitas::Operaciones_juego::AVANZAR)
+      Civitas::Dado.instance.set_debug(true)
+       
+      #PROBANDO P3
+      juego.
+      juego.comprar
+      
       while(Civitas::Diario.instance.eventos_pendientes)
         puts Civitas::Diario.instance.leer_evento
       end
