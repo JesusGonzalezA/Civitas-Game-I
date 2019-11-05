@@ -81,7 +81,7 @@ module Civitas
         
         if (resultado)
           evento = "El jugador #{@nombre} cancela la hipoteca de la propiedad"
-          evento += " ip"
+          evento += " #{ip}"
           Diario.instance.ocurre_evento(evento)
         end
       end
