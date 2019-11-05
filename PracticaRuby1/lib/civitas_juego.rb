@@ -244,7 +244,7 @@ module Civitas
     
     #--------------------------------------------------------------
     private :inicializa_mazo_sorpresas, :inicializa_tablero
-    private :actualizar_info, :contabilizar_pasos_por_salida
+    private :contabilizar_pasos_por_salida
     private :pasar_turno, :ranking,:avanza_jugador
     
     #--------------------------------------------------------------
