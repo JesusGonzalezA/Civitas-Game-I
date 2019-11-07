@@ -204,7 +204,7 @@ module Civitas
     
     #------------------------------------------
     def informe(actual,todos)
-      evento = "Se esta aplicando la sorpresa #{to_string} al jugador #{todos.at(actual).nombre}"
+      evento = "Se esta aplicando la sorpresa [#{to_string}] al jugador #{todos.at(actual).nombre}"
       Diario.instance.ocurre_evento(evento)
     end
     
