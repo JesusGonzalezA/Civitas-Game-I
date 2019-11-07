@@ -165,12 +165,12 @@ module Civitas
         casilla_actual = tablero.get_casilla(i)
       end
       
-      @mazo.al_mazo(Sorpresa.new_sorpresa_liberar(@mazo))
-      @mazo.al_mazo(Sorpresa.new_sorpresa_ir_a(posPaseoPrado, "Ve a Paseo del Prado",tablero))
-      @mazo.al_mazo(Sorpresa.new_sorpresa_encarcelar(tablero))
-      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PORCASAHOTEL,tablero,-50,"Paga por propiedades"))
-      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PAGARCOBRAR,tablero,-50,"Paga"))
-      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PORJUGADOR,tablero,50,"Paga a todos/Cobra 1"))
+#      @mazo.al_mazo(Sorpresa.new_sorpresa_liberar(@mazo))
+#      @mazo.al_mazo(Sorpresa.new_sorpresa_ir_a(posPaseoPrado, "Ve a Paseo del Prado",tablero))
+#      @mazo.al_mazo(Sorpresa.new_sorpresa_encarcelar(tablero))
+#      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PORCASAHOTEL,tablero,-50,"Paga por propiedades"))
+#      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PAGARCOBRAR,tablero,-50,"Paga"))
+      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PORJUGADOR,tablero,50,"Recibe 50 de cada jugador"))
      
     end
     
