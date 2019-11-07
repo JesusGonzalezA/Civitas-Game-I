@@ -36,9 +36,9 @@ module Civitas
 
     
     def pausa
-      mostrar_estado ("Pulsa una tecla ")
+      print "Pulsa una tecla "
       STDIN.getch
-      mostrar_estado( "\n" )
+      print "\n"
     end
 
     def lee_entero(max,msg1,msg2)
