@@ -99,6 +99,8 @@ module Civitas
         end #if continuar
         
       end #while jugar
+     
+      @vista.actualizarVista
       
     end #juega
     
