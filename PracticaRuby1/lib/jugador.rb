@@ -335,7 +335,7 @@ module Civitas
       puedo = false
       
       if (!is_encarcelado)
-        puedo = (@saldo>precio)
+        puedo = (@saldo>=precio)
       end
       
       return puedo
