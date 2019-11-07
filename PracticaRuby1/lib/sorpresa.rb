@@ -37,6 +37,7 @@ module Civitas
       when Tipo_sorpresa::IRCASILLA
         @valor = args[0]
         @texto = args[1]
+        @tablero = args[2]
       when Tipo_sorpresa::SALIRCARCEL
         @mazo = args[0]
         @texto = "Quedas libre de la Cárcel"
@@ -60,9 +61,9 @@ module Civitas
       s
     end
     
-    def self .new_sorpresa_ir_a(valor,texto)
+    def self .new_sorpresa_ir_a(valor,texto,tablero)
       tipo = Tipo_sorpresa::IRCASILLA
-      s = new(tipo,valor,texto)
+      s = new(tipo,valor,texto,tablero)
       s
     end
     

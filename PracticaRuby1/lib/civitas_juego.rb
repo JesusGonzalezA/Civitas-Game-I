@@ -28,7 +28,7 @@ module Civitas
       @indiceJugadorActual = Dado.instance.quien_empieza(@jugadores.size)
         
       #Creo mazo e inicializo tablero (que tambien lo crea) y mazo
-      @mazo = MazoSorpresas.new_mazo_sorpresas_default
+      @mazo = MazoSorpresas.new_mazo_sorpresas_debug(true)
       inicializa_tablero(@mazo)
       inicializa_mazo_sorpresas(@tablero)
      
@@ -166,7 +166,7 @@ module Civitas
       end
       
       @mazo.al_mazo(Sorpresa.new_sorpresa_liberar(@mazo))
-      @mazo.al_mazo(Sorpresa.new_sorpresa_ir_a(posPaseoPrado, "Ve a Paseo del Prado"))
+      @mazo.al_mazo(Sorpresa.new_sorpresa_ir_a(posPaseoPrado, "Ve a Paseo del Prado",tablero))
       @mazo.al_mazo(Sorpresa.new_sorpresa_encarcelar(tablero))
       @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PORCASAHOTEL,tablero,50,"Paga por propiedades"))
       @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PAGARCOBRAR,tablero,50,"Paga"))
