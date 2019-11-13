@@ -6,6 +6,7 @@ require_relative 'respuestas'
 require_relative 'operacion_inmobiliaria'
 require_relative 'gestiones_inmobiliarias'
 require_relative 'salidas_carcel'
+require_relative 'vista_textual'
 
 module Civitas
   class Controlador

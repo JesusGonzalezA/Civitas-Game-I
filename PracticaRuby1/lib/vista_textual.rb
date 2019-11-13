@@ -5,6 +5,7 @@ require_relative 'gestiones_inmobiliarias'
 require_relative 'salidas_carcel'
 require_relative 'respuestas'
 require_relative 'civitas_juego'
+require_relative 'diario'
 require 'io/console'
 
 module Civitas

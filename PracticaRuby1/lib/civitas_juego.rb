@@ -2,11 +2,14 @@
 
 require_relative 'dado'
 require_relative 'jugador'
+require_relative 'titulo_propiedad'
+require_relative 'sorpresa'
 require_relative 'estados_juego'
 require_relative 'gestor_estados'
 require_relative 'operaciones_juego'
 require_relative 'mazo_sorpresas'
 require_relative 'tablero'
+require_relative 'casilla'
 
 module Civitas
   class CivitasJuego

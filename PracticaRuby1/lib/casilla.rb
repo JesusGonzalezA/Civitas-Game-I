@@ -4,6 +4,8 @@ require_relative 'tipo_casilla'
 require_relative 'titulo_propiedad'
 require_relative 'sorpresa'
 require_relative 'mazo_sorpresas'
+require_relative 'jugador'
+require_relative 'diario'
 
 module Civitas
   class Casilla
