@@ -3,6 +3,7 @@
 require_relative 'civitas_juego'
 require_relative 'vista_textual'
 require_relative 'controlador'
+require_relative 'dado'
 
 module Civitas
 class ProgramaPrincipal

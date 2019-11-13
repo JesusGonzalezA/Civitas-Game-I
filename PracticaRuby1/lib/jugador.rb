@@ -3,6 +3,7 @@
 require_relative 'titulo_propiedad'
 require_relative 'sorpresa'
 require_relative 'diario'
+require_relative 'dado'
 
 module Civitas
   class Jugador
