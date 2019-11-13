@@ -165,11 +165,11 @@ module Civitas
         casilla_actual = tablero.get_casilla(i)
       end
       
-#      @mazo.al_mazo(Sorpresa.new_sorpresa_liberar(@mazo))
-#      @mazo.al_mazo(Sorpresa.new_sorpresa_ir_a(posPaseoPrado, "Ve a Paseo del Prado",tablero))
-#      @mazo.al_mazo(Sorpresa.new_sorpresa_encarcelar(tablero))
-#      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PORCASAHOTEL,tablero,-50,"Paga por propiedades"))
-#      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PAGARCOBRAR,tablero,-50,"Paga"))
+      @mazo.al_mazo(Sorpresa.new_sorpresa_liberar(@mazo))
+      @mazo.al_mazo(Sorpresa.new_sorpresa_ir_a(posPaseoPrado, "Ve a Paseo del Prado",tablero))
+      @mazo.al_mazo(Sorpresa.new_sorpresa_encarcelar(tablero))
+      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PORCASAHOTEL,tablero,-50,"Paga por propiedades"))
+      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PAGARCOBRAR,tablero,-50,"Paga"))
       @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PORJUGADOR,tablero,50,"Recibe 50 de cada jugador"))
      
     end
@@ -183,10 +183,10 @@ module Civitas
       
       #Añade casillas
       @tablero.añade_casilla(Casilla.new_casilla_sorpresa(@mazo, "Caja de comunidad"))
-#      @tablero.añade_casilla(Casilla.new_casilla_descanso("Descanso"))
+      @tablero.añade_casilla(Casilla.new_casilla_descanso("Descanso"))
       @tablero.añade_casilla(Casilla.new_casilla_calle(TituloPropiedad.new("Murcia",25,50,1000,2000,500)))
-#      @tablero.añade_casilla(Casilla.new_casilla_impuesto("Impuesto por ser tan guapo",1500))
-#      @tablero.añade_casilla(Casilla.new_casilla_calle(TituloPropiedad.new("Paseo del Prado",25,50,1000,2000,500)))
+      @tablero.añade_casilla(Casilla.new_casilla_impuesto("Impuesto por ser tan guapo",1500))
+      @tablero.añade_casilla(Casilla.new_casilla_calle(TituloPropiedad.new("Paseo del Prado",50,100,2000,4000,1000)))
       @tablero.añade_juez
       
     end
