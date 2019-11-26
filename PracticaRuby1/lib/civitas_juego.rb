@@ -10,6 +10,11 @@ require_relative 'operaciones_juego'
 require_relative 'mazo_sorpresas'
 require_relative 'tablero'
 require_relative 'casilla'
+require_relative 'casilla_calle'
+require_relative 'casilla_impuesto'
+require_relative 'casilla_juez'
+require_relative 'casilla_sorpresa'
+
 
 module Civitas
   class CivitasJuego
@@ -185,11 +190,11 @@ module Civitas
       @tablero = Tablero.new(indice_carcel)
       
       #Añade casillas
-      @tablero.añade_casilla(Casilla.new_casilla_sorpresa(@mazo, "Caja de comunidad"))
-      @tablero.añade_casilla(Casilla.new_casilla_descanso("Descanso"))
-      @tablero.añade_casilla(Casilla.new_casilla_calle(TituloPropiedad.new("Murcia",25,50,1000,2000,500)))
-      @tablero.añade_casilla(Casilla.new_casilla_impuesto("Impuesto por ser tan guapo",1500))
-      @tablero.añade_casilla(Casilla.new_casilla_calle(TituloPropiedad.new("Paseo del Prado",50,100,2000,4000,1000)))
+      @tablero.añade_casilla(Casilla_sorpresa.new("Caja de comunidad",mazo))
+      @tablero.añade_casilla(Casilla.new("Descanso"))
+      @tablero.añade_casilla(Casilla_calle.new(TituloPropiedad.new("Murcia",25,50,1000,2000,500)))
+      @tablero.añade_casilla(Casilla_impuesto.new("Impuesto por ser tan guapo",1500))
+      @tablero.añade_casilla(Casilla_calle.new(TituloPropiedad.new("Paseo del Prado",50,100,2000,4000,1000)))
       @tablero.añade_juez
       
     end

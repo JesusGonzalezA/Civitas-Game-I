@@ -1,97 +1,22 @@
 # encoding:utf-8
 
-require_relative 'tipo_casilla'
-require_relative 'titulo_propiedad'
-require_relative 'sorpresa'
-require_relative 'mazo_sorpresas'
-require_relative 'jugador'
 require_relative 'diario'
 
 module Civitas
   class Casilla
   
-    #Atributos de clase
-    @@Carcel = -1 
-    
-    def initialize (tipo,*args)
-      
-      init
-      @tipo = tipo
-      
-      case @tipo
-      
-      when Tipo_casilla::DESCANSO
-        @nombre = args.at(0)
-      when Tipo_casilla::CALLE
-        @tituloPropiedad = args[0]
-        @nombre = @tituloPropiedad.nombre
-      when Tipo_casilla::IMPUESTO
-        @nombre = args[0]
-        @importe = args[1]
-      when Tipo_casilla::JUEZ
-        @nombre = args[0]
-        @@Carcel = args[1]
-      when Tipo_casilla::SORPRESA
-        @nombre = args[1]
-        @mazo = args[0]
-      end
-      
-      
-    end
-    
-    def self .new_casilla_descanso (nombre)
-      c = new(Tipo_casilla::DESCANSO,nombre)
-      c
-    end
-    
-    def self .new_casilla_calle (titulo)
-      c = new(Tipo_casilla::CALLE,titulo)
-      c
-    end
-    
-    def self .new_casilla_impuesto(nombre,importe)
-      c = new(Tipo_casilla::IMPUESTO,nombre,importe)
-      c
-    end
-    
-    def self .new_casilla_juez (nombre,numCasillaCarcel)
-      c = new(Tipo_casilla::JUEZ,nombre,numCasillaCarcel)
-      c
-    end
-    
-    def self .new_casilla_sorpresa(mazo,nombre)
-      c = new(Tipo_casilla::SORPRESA,mazo,nombre)
-      c
-    end
-    
-    def init
-      #Atributos de referencia
-      @tipo = nil
-      @tituloPropiedad = nil
-      @sorpresa = nil
-      @mazo = nil
-      
-      #Atributos de instancia
-      @nombre = ""
-      @importe =0
-      
+    def initialize (nombre)
+      @nombre = nombre 
     end
   
     #---------------------------------------------------------------
-    private_class_method :new
-    
-    #---------------------------------------------------------------
-    attr_reader :nombre,:tituloPropiedad
-
+    attr_reader :nombre
     #---------------------------------------------------------------
     
     def informe (actual,todos)
-      
       evento = "El jugador #{todos.at(actual).nombre} ha caido en la casilla #{@nombre}"
-      
       #Informo a diario
       Diario.instance.ocurre_evento(evento)
-      
       evento
     end
     
@@ -101,91 +26,20 @@ module Civitas
     end
     
     def recibe_jugador (actual,todos)
-      case @tipo
-      
-      when Tipo_casilla::CALLE
-        recibe_jugador_calle(actual,todos)
-      when Tipo_casilla::IMPUESTO
-        recibe_jugador_impuesto(actual,todos)
-      when Tipo_casilla::JUEZ
-        recibe_jugador_juez(actual,todos)
-      when Tipo_casilla::SORPRESA
-        recibe_jugador_sorpresa(actual,todos)
-      else
-        informe(actual,todos)
-      end
-    end
-
-    def recibe_jugador_calle(actual,todos)
       if (jugador_correcto(actual,todos))
-        
         informe(actual,todos)
-        
-        if (!@tituloPropiedad.tiene_propietario)
-          todos.at(actual).puede_comprar_casilla
-        
-        else
-          @tituloPropiedad.tramitar_alquiler(todos.at(actual))
-         
-        end
-        
-      end
-    end
-    
-    def recibe_jugador_impuesto (actual,todos)
-      if(jugador_correcto(actual,todos))
-        informe(actual,todos)
-        
-        #Jugador paga el impuesto
-        todos.at(actual).paga_impuesto(@importe)
-      end
-    end
-    
-    def recibe_jugador_juez (actual,todos)
-      if(jugador_correcto(actual,todos))
-        informe(actual,todos)
-        
-        #encarcela al jugador
-        todos.at(actual).encarcelar(@@Carcel)
-      end
-    end
-    
-    def recibe_jugador_sorpresa(actual,todos)
-      if(jugador_correcto(actual,todos))
-        
-        #1
-        sorpresa = @mazo.siguiente
-        
-        #2
-        informe(actual,todos)
-        
-        #3
-        sorpresa.aplicar_a_jugador(actual, todos)
-        
       end
     end
     
     def to_string
-      
       representacion = "Casilla:
          - Nombre = #{@nombre}"
-      
-      if (@tituloPropiedad != nil)
-        representacion += "\n\t - Titulo de propiedad = #{@tituloPropiedad.to_string}"
-      end
-      
-      if (@sorpresa != nil)
-        representacion += "\n\t- Sorpresa = #{@sorpresa.to_string}"
-      end
       
       return representacion
     end
     
-    
-    
     #---------------------------------------------------------------
-    private :init, :informe, :recibe_jugador_impuesto, :recibe_jugador_juez
-    private :recibe_jugador_sorpresa,:recibe_jugador_calle
+    private :informe
     #---------------------------------------------------------------
     
     

@@ -18,7 +18,7 @@ module Civitas
 
       #creo array vacio y añado Salida
       @casillas = []
-      @casillas << Casilla.new_casilla_descanso("Salida")
+      @casillas << Casilla.new("Salida")
       
 
       @porSalida = 0
@@ -74,19 +74,19 @@ module Civitas
 
     def añade_casilla (casilla)
       if @casillas.size == @numCasillaCarcel
-        @casillas.push(Casilla.new_casilla_descanso("Carcel")) 
+        @casillas.push(Casilla.new("Carcel")) 
       end
 
       @casillas.push(casilla)
 
       if @casillas.size == @numCasillaCarcel
-        @casillas.push(Casilla.new_casilla_descanso("Carcel"))    
+        @casillas.push(Casilla.new("Carcel"))    
       end
     end
     
     def añade_juez 
       if @tieneJuez==false
-        añade_casilla(Casilla.new_casilla_juez("Juez", @numCasillaCarcel))
+        añade_casilla(Casilla_juez.new("Juez", @numCasillaCarcel))
       end
       
       @tieneJuez = true
