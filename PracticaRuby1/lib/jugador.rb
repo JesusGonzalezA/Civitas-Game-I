@@ -38,6 +38,9 @@ module Civitas
         #Atributos de referencia
         @salvoconducto = otro.salvoconducto
         @propiedades = otro.propiedades
+        for i in @propiedades
+          i.actualiza_propietario_por_conversion(self)
+        end
 
         #Atributos de instancia
         @encarcelado = otro.is_encarcelado
@@ -62,9 +65,30 @@ module Civitas
     #---------------------------------------------------------
     #Consultores basicos
     
-    attr_reader :CasasMax,:CasasPorHotel,:HotelesMax,:nombre,:numCasillaActual, :salvoconducto
-    attr_reader :PrecioLibertad, :PasoPorSalida,:propiedades,:puedeComprar,:saldo
+    attr_reader :nombre,:numCasillaActual, :salvoconducto
+    attr_reader :propiedades,:puedeComprar,:saldo
     
+    def self .CasasMax
+      @@CasasMax
+    end
+    
+    def self .CasasPorHotel
+      @@CasasPorHotel
+    end
+    
+    def self .HotelesMax
+      @@HotelesMax
+    end
+    
+    def self .PrecioLibertad
+      @@PrecioLibertad
+    end
+      
+    def self .PasoPorSalida
+      @@PasoPorSalida
+    end
+    
+    #private_class_method :CasasMax,:CasasPorHotel,:HotelesMax,:PrecioLibertad,:PasoPorSalida
     #---------------------------------------------------------
    
     def cancelar_hipoteca(ip)
@@ -163,7 +187,7 @@ module Civitas
           #Construir
           resultado = propiedad.construir_hotel(self)
           #Reiniciar casa
-          propiedad.derruir_casas(@@CasasPorHotel,self)
+          propiedad.derruir_casas(self.class.CasasPorHotel,self)
           #Diario
           evento = "El jugador #{@nombre} construye hotel en la propiedad #{ip}, #{propiedad.nombre}"
           Diario.instance.ocurre_evento(evento)
@@ -295,7 +319,7 @@ module Civitas
     
     def pasa_por_salida
       Diario.instance.ocurre_evento("El jugador #{@nombre} pasa por la casilla de salida")
-      modificar_saldo(@@PasoPorSalida)
+      modificar_saldo(self.class.PasoPorSalida)
       return true
     end
     
@@ -310,21 +334,21 @@ module Civitas
     end
     
     def puede_salir_carcel_pagando
-      return @saldo>=@@PrecioLibertad
+      return @saldo>=self.class.PrecioLibertad
     end
     
     def puedo_edificar_casa(propiedad)
       i = @propiedades.index(propiedad)
       
-      puedo = (i!=nil) && puedo_gastar(propiedad.precioEdificar) && (propiedad.numCasas < @@CasasMax)
+      puedo = (i!=nil) && puedo_gastar(propiedad.precioEdificar) && (propiedad.numCasas < self.class.CasasMax)
     end
     
     def puedo_edificar_hotel(propiedad)
       i = @propiedades.index(propiedad)
       
       condicion1 = (i!=nil) && puedo_gastar(propiedad.precioEdificar) 
-      condicion2 = (propiedad.numCasas >= @@CasasPorHotel)
-      condicion3 = (propiedad.numHoteles<@@HotelesMax)
+      condicion2 = (propiedad.numCasas >= self.class.CasasPorHotel)
+      condicion3 = (propiedad.numHoteles<self.class.HotelesMax)
       
       puedo = condicion1 && condicion2 && condicion3
       
@@ -356,7 +380,7 @@ module Civitas
       sale = false
       
       if (is_encarcelado() && puede_salir_carcel_pagando())
-        paga(@@PrecioLibertad)
+        paga(self.class.PrecioLibertad)
         @encarcelado = false
         sale = true
         Diario.instance.ocurre_evento("El jugador #{@nombre} sale de la cárcel pagando")
@@ -405,11 +429,11 @@ module Civitas
         - Encarcelado = #{@encarcelado}
         - Salvoconducto = #{tiene_salvoconducto()}
         - Propiedades = #{rep_propiedades}
-        - Máximo de casas = #{@@CasasMax}
-        - Máximo de hoteles = #{@@HotelesMax}
-        - Casas por hotel = #{@@CasasPorHotel}
-        - Paso por salida = #{@@PasoPorSalida}
-        - Precio de libertad = #{@@PrecioLibertad}
+        - Máximo de casas = #{self.class.CasasMax}
+        - Máximo de hoteles = #{self.class.HotelesMax}
+        - Casas por hotel = #{self.class.CasasPorHotel}
+        - Paso por salida = #{self.class.PasoPorSalida}
+        - Precio de libertad = #{self.class.PrecioLibertad}
         - Saldo inicial = #{@@SaldoInicial}"
      
     
@@ -437,9 +461,11 @@ module Civitas
     
     #---------------------------------------------------------
     #Métodos privados
-    private :debe_ser_encarcelado,:existe_la_propiedad,:perder_salvoconducto
+    private :existe_la_propiedad,:perder_salvoconducto
     private :puede_salir_carcel_pagando, :puedo_edificar_casa,:puedo_edificar_hotel
     private :puedo_gastar
+    #---------------------------------------------------------
+   # protected :paga_impuesto, :debe_ser_encarcelado
     #---------------------------------------------------------
   end
 end
