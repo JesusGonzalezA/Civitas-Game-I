@@ -7,7 +7,7 @@ module Civitas
     
     #----------------------------------------------
     def initialize(titulo)
-      super(nombre)
+      super(titulo.nombre)
       @tituloPropiedad = titulo
     end
     

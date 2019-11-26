@@ -14,6 +14,13 @@ require_relative 'casilla_calle'
 require_relative 'casilla_impuesto'
 require_relative 'casilla_juez'
 require_relative 'casilla_sorpresa'
+require_relative 'sorpresa_convertir'
+require_relative 'sorpresa_ir_carcel'
+require_relative 'sorpresa_ir_casilla'
+require_relative 'sorpresa_pagar_cobrar'
+require_relative 'sorpresa_por_casa_hotel'
+require_relative 'sorpresa_por_jugador'
+require_relative 'sorpresa_salir_carcel'
 
 
 module Civitas
@@ -169,16 +176,18 @@ module Civitas
           posPaseoPrado = i
         end
         
+        puts casilla_actual.nombre
+        
         i+=1
         casilla_actual = tablero.get_casilla(i)
       end
       
-      @mazo.al_mazo(Sorpresa.new_sorpresa_liberar(@mazo))
-      @mazo.al_mazo(Sorpresa.new_sorpresa_ir_a(posPaseoPrado, "Ve a Paseo del Prado",tablero))
-      @mazo.al_mazo(Sorpresa.new_sorpresa_encarcelar(tablero))
-      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PORCASAHOTEL,tablero,-50,"Paga por propiedades"))
-      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PAGARCOBRAR,tablero,-50,"Paga"))
-      @mazo.al_mazo(Sorpresa.new_sorpresa(Tipo_sorpresa::PORJUGADOR,tablero,50,"Recibe 50 de cada jugador"))
+      @mazo.al_mazo(SorpresaSalirCarcel.new(@mazo))
+      @mazo.al_mazo(SorpresaIrCasilla.new(posPaseoPrado, "Ve a Paseo del Prado #{posPaseoPrado}",tablero))
+      @mazo.al_mazo(SorpresaIrCarcel.new(tablero))
+      @mazo.al_mazo(SorpresaPorCasaHotel.new("Paga por propiedades",-50))
+      @mazo.al_mazo(SorpresaPagarCobrar.new("Paga",-50))
+      @mazo.al_mazo(SorpresaPorJugador.new("Recibe 50 de cada jugador",50))
      
     end
     
