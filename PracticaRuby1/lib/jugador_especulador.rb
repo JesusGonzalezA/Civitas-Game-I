@@ -15,25 +15,24 @@ require_relative 'jugador'
 module Civitas
   class JugadorEspeculador < Jugador
     
+    @FactorEspeculador = 2
+    @CasasMax = Jugador.CasasMax * @FactorEspeculador
+    @HotelesMax = Jugador.HotelesMax * @FactorEspeculador
+    
     def initialize(otro,fianza)
       super("",otro)
-      @@FactorEspeculador = 2
       @fianza = fianza
     end
     
     #-----------------------------------
     public_class_method :new
     #------------------------------------
-    def self .HotelesMax
-      super*@@FactorEspeculador
+    def self .FactorEspeculador
+      @FactorEspeculador
     end
     
-    def self .CasasMax
-      super*@@FactorEspeculador
-    end
-    #------------------------------------
     def paga_impuesto(cantidad)
-      super(cantidad/@@FactorEspeculador)
+      super(cantidad/self.class.FactorEspeculador)
     end
     #------------------------------------
     def to_string

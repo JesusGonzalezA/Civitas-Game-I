@@ -9,9 +9,9 @@ module Civitas
   class Jugador
     #---------------------------------------------------------
     #Atributos de clase
-    @@CasasMax = 4
+    @CasasMax = 4
     @@CasasPorHotel = 4
-    @@HotelesMax = 4
+    @HotelesMax = 4
     @@PasoPorSalida = 1000
     @@PrecioLibertad = 200
     @@SaldoInicial = 7500
@@ -69,7 +69,7 @@ module Civitas
     attr_reader :propiedades,:puedeComprar,:saldo
     
     def self .CasasMax
-      @@CasasMax
+      @CasasMax
     end
     
     def self .CasasPorHotel
@@ -77,7 +77,7 @@ module Civitas
     end
     
     def self .HotelesMax
-      @@HotelesMax
+      @HotelesMax
     end
     
     def self .PrecioLibertad
